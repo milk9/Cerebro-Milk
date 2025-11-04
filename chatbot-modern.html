@@ -1,0 +1,1031 @@
+---
+Título: Milk Naming Assistant - Modern Clean UI
+tags: chatbot, modern, minimal, ux-ui
+Url:
+Criado em: <% tp.file.creation_date ("YYYY-MM-DD HH:mm") %>
+Modificado: <% tp.file.last_modified_date ("YYYY-MM-DD HH:mm") %>
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <title>Milk Assistant</title>
+</head>
+<body>
+
+<!-- ===================================================================
+     🎨 MODERN CHATBOT UI - 2024 BEST PRACTICES
+     ---------------------------------------------------------------
+     Design Philosophy: Clean, Minimal, Human-Centered
+     Inspiration: ChatGPT, Linear, Intercom, Slack
+     ---------------------------------------------------------------
+     ✓ Generous white space for better readability
+     ✓ Subtle animations for delightful interactions
+     ✓ Neutral color palette with modern accent
+     ✓ Clear visual hierarchy without visual noise
+     ✓ Floating messages instead of heavy bubbles
+     ✓ Progressive disclosure of information
+     ✓ Accessible and keyboard-friendly
+     =================================================================== -->
+
+<div id="app"></div>
+
+<style>
+  /* ================================================================
+     🎨 MODERN DESIGN SYSTEM
+     ================================================================ */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    /* 🎨 Color Palette - Neutral & Modern */
+    --color-bg: #fafafa;
+    --color-surface: #ffffff;
+    --color-border: #e5e5e5;
+    --color-border-subtle: #f0f0f0;
+
+    --color-text: #171717;
+    --color-text-secondary: #525252;
+    --color-text-tertiary: #a3a3a3;
+
+    /* Accent Colors - Modern Blue/Violet */
+    --color-primary: #6366f1;
+    --color-primary-hover: #4f46e5;
+    --color-primary-light: #e0e7ff;
+    --color-primary-subtle: #f5f7ff;
+
+    /* Semantic Colors */
+    --color-success: #22c55e;
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+
+    /* Shadows - Subtle and Soft */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+    /* Typography - Generous Sizing */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+    --text-xs: 0.75rem;      /* 12px */
+    --text-sm: 0.875rem;     /* 14px */
+    --text-base: 0.9375rem;  /* 15px */
+    --text-lg: 1rem;         /* 16px */
+    --text-xl: 1.125rem;     /* 18px */
+    --text-2xl: 1.5rem;      /* 24px */
+    --text-3xl: 2rem;        /* 32px */
+
+    --weight-light: 300;
+    --weight-normal: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 1.75;
+
+    /* Spacing - 4px Base Scale */
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.25rem;   /* 20px */
+    --space-6: 1.5rem;    /* 24px */
+    --space-8: 2rem;      /* 32px */
+    --space-10: 2.5rem;   /* 40px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
+
+    /* Border Radius - Modern & Soft */
+    --radius-sm: 0.5rem;    /* 8px */
+    --radius-md: 0.75rem;   /* 12px */
+    --radius-lg: 1rem;      /* 16px */
+    --radius-xl: 1.25rem;   /* 20px */
+    --radius-2xl: 1.5rem;   /* 24px */
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+    --duration-fast: 150ms;
+    --duration-base: 200ms;
+    --duration-slow: 300ms;
+  }
+
+  /* Dark Mode Support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #0a0a0a;
+      --color-surface: #171717;
+      --color-border: #262626;
+      --color-border-subtle: #1f1f1f;
+
+      --color-text: #fafafa;
+      --color-text-secondary: #a3a3a3;
+      --color-text-tertiary: #525252;
+
+      --color-primary: #818cf8;
+      --color-primary-hover: #a5b4fc;
+      --color-primary-light: #312e81;
+      --color-primary-subtle: #1e1b4b;
+
+      --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
+      --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  /* ================================================================
+     🌐 RESET & BASE
+     ================================================================ */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: var(--leading-normal);
+    font-size: var(--text-base);
+    overflow: hidden;
+  }
+
+  /* ================================================================
+     🏗️ APP CONTAINER
+     ================================================================ */
+  #app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+  }
+
+  /* ================================================================
+     🎯 HEADER - Minimal & Clean
+     ================================================================ */
+  .chat-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-border-subtle);
+    background: var(--color-surface);
+  }
+
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    display: grid;
+    place-items: center;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .header-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .assistant-name {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+  }
+
+  .status-dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: var(--radius-full);
+    background: var(--color-success);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .status-dot.offline {
+    background: var(--color-text-tertiary);
+    animation: none;
+  }
+
+  .status-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ================================================================
+     💬 MESSAGES CONTAINER
+     ================================================================ */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-8) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    scroll-behavior: smooth;
+  }
+
+  /* Invisible Scrollbar (appears on hover) */
+  .messages::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .messages::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: var(--radius-full);
+    transition: background var(--duration-base);
+  }
+
+  .messages:hover::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+  }
+
+  .messages::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+
+  /* ================================================================
+     💭 MESSAGE BUBBLES - Floating & Light
+     ================================================================ */
+  .message {
+    display: flex;
+    gap: var(--space-3);
+    animation: slide-in var(--duration-slow) var(--ease-out);
+    max-width: 48rem;
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+
+  .message-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-full);
+    background: var(--color-border-subtle);
+    display: grid;
+    place-items: center;
+    font-size: var(--text-xs);
+    flex-shrink: 0;
+    margin-top: var(--space-1);
+  }
+
+  .message-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .message-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    word-wrap: break-word;
+  }
+
+  /* Bot Message */
+  .message.bot .message-avatar {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    color: white;
+    font-weight: var(--weight-medium);
+  }
+
+  /* User Message - Right Aligned */
+  .message.user {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+  }
+
+  .message.user .message-avatar {
+    background: var(--color-text-tertiary);
+    color: white;
+  }
+
+  .message.user .message-text {
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--space-1);
+    display: inline-block;
+    max-width: fit-content;
+  }
+
+  /* Error Message */
+  .message.error .message-text {
+    color: var(--color-error);
+    background: rgba(239, 68, 68, 0.05);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border-left: 2px solid var(--color-error);
+  }
+
+  /* ================================================================
+     📝 MESSAGE TYPOGRAPHY
+     ================================================================ */
+
+  /* Headings - Clear Hierarchy */
+  .message-text h1,
+  .message-text h2,
+  .message-text h3,
+  .message-text h4 {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .message-text h1:first-child,
+  .message-text h2:first-child,
+  .message-text h3:first-child,
+  .message-text h4:first-child {
+    margin-top: 0;
+  }
+
+  .message-text h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    margin-bottom: var(--space-5);
+  }
+
+  .message-text h2 {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-6);
+  }
+
+  .message-text h3 {
+    font-size: var(--text-xl);
+  }
+
+  .message-text h4 {
+    font-size: var(--text-lg);
+  }
+
+  /* Paragraphs */
+  .message-text p {
+    margin: var(--space-4) 0;
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+  }
+
+  .message-text p:first-child { margin-top: 0; }
+  .message-text p:last-child { margin-bottom: 0; }
+
+  /* Text Styling */
+  .message-text strong {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  .message-text em {
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .message-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all var(--duration-fast) var(--ease-in-out);
+  }
+
+  .message-text a:hover {
+    border-bottom-color: var(--color-primary);
+  }
+
+  /* Lists - Clean & Scannable */
+  .message-text ol,
+  .message-text ul {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-6);
+    color: var(--color-text-secondary);
+  }
+
+  .message-text li {
+    margin: var(--space-3) 0;
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-2);
+  }
+
+  .message-text li::marker {
+    color: var(--color-primary);
+  }
+
+  /* Horizontal Rule */
+  .message-text hr {
+    border: 0;
+    height: 1px;
+    background: var(--color-border);
+    margin: var(--space-8) 0;
+  }
+
+  /* Code - Modern & Clean */
+  .message-text code {
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', monospace;
+    font-weight: var(--weight-medium);
+  }
+
+  .message-text pre {
+    background: var(--color-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-5) 0;
+    border: 1px solid var(--color-border);
+  }
+
+  .message-text pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+  }
+
+  .message-text pre::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+
+  .message-text pre::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Blockquote */
+  .message-text blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding-left: var(--space-4);
+    margin: var(--space-5) 0;
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  /* ================================================================
+     ⏳ TYPING INDICATOR
+     ================================================================ */
+  .typing {
+    display: flex;
+    gap: var(--space-3);
+    max-width: 48rem;
+    animation: slide-in var(--duration-slow) var(--ease-out);
+  }
+
+  .typing-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    display: grid;
+    place-items: center;
+    font-size: var(--text-xs);
+    color: white;
+    flex-shrink: 0;
+    margin-top: var(--space-1);
+    font-weight: var(--weight-medium);
+  }
+
+  .typing-dots {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .typing-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--color-text-tertiary);
+    animation: bounce 1.4s ease-in-out infinite;
+  }
+
+  .typing-dot:nth-child(1) { animation-delay: 0s; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-0.5rem);
+      opacity: 1;
+    }
+  }
+
+  /* ================================================================
+     ⌨️ INPUT AREA - Floating & Modern
+     ================================================================ */
+  .input-area {
+    flex-shrink: 0;
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .input-container {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-3);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .input-wrapper {
+    flex: 1;
+    position: relative;
+  }
+
+  .input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    resize: none;
+    outline: none;
+    transition: all var(--duration-base) var(--ease-in-out);
+    max-height: 10rem;
+  }
+
+  .input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
+
+  .input::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  .send-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--color-primary);
+    color: white;
+    font-size: var(--text-lg);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: all var(--duration-base) var(--ease-in-out);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .send-button:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+  }
+
+  .send-button:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  .send-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: scale(1);
+  }
+
+  /* ================================================================
+     📱 RESPONSIVE
+     ================================================================ */
+  @media (max-width: 768px) {
+    .chat-header {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .messages {
+      padding: var(--space-6) var(--space-4);
+      gap: var(--space-5);
+    }
+
+    .message-text h1 { font-size: var(--text-2xl); }
+    .message-text h2 { font-size: var(--text-xl); }
+    .message-text h3 { font-size: var(--text-lg); }
+
+    .input-area {
+      padding: var(--space-3) var(--space-4) var(--space-4);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .assistant-name {
+      font-size: var(--text-base);
+    }
+
+    .messages {
+      padding: var(--space-5) var(--space-3);
+    }
+
+    .message-text {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* ================================================================
+     🎯 FOCUS VISIBLE - Accessibility
+     ================================================================ */
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  button:focus-visible {
+    outline-offset: 4px;
+  }
+</style>
+
+<!-- Marked.js for Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ================================================================
+     🔧 CONFIGURATION
+     ================================================================ */
+  const CONFIG = {
+    webhookUrl: 'coloque aqui a url',
+    timeout: 60000,
+    route: 'general',
+    storageKey: 'milkChatId'
+  };
+
+  /* ================================================================
+     🏗️ CHAT APPLICATION
+     ================================================================ */
+  class ChatApp {
+    constructor() {
+      this.chatId = this.initChatId();
+      this.isOnline = true;
+      this.elements = {};
+
+      this.init();
+    }
+
+    init() {
+      this.render();
+      this.cacheElements();
+      this.attachListeners();
+      this.focusInput();
+
+      console.log('✅ Chat initialized');
+    }
+
+    initChatId() {
+      let id = sessionStorage.getItem(CONFIG.storageKey);
+      if (!id) {
+        id = `chat_${Math.random().toString(36).slice(2, 11)}`;
+        sessionStorage.setItem(CONFIG.storageKey, id);
+      }
+      return id;
+    }
+
+    render() {
+      const app = document.getElementById('app');
+
+      app.innerHTML = `
+        <div class="chat-header">
+          <div class="avatar">M</div>
+          <div class="header-info">
+            <div class="assistant-name">Milk Assistant</div>
+            <div class="status">
+              <span class="status-dot" data-status-dot></span>
+              <span class="status-text" data-status-text>Online</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="messages" data-messages>
+          <div class="message bot">
+            <div class="message-avatar">M</div>
+            <div class="message-content">
+              <div class="message-text">
+                <h1>Top 3 Nomes com Maior Pontuação</h1>
+                <p>Baseado nos critérios de sonoridade, memorabilidade e originalidade, aqui estão os nomes mais bem avaliados:</p>
+                <ol>
+                  <li><strong>Calina</strong> — 92/100 pontos</li>
+                  <li><strong>Elyra</strong> — 90/100 pontos</li>
+                  <li><strong>Lumira</strong> — 89/100 pontos</li>
+                </ol>
+                <hr>
+                <h2>Nomes Inspirados em Serenidade</h2>
+                <p>Criamos algumas alternativas que transmitem calma e harmonia:</p>
+                <ul>
+                  <li><strong>Elyra</strong> — evoca leveza, melodia e harmonia natural</li>
+                  <li><strong>Serena</strong> — transmite paz e tranquilidade</li>
+                  <li><strong>Calista</strong> — combina beleza e serenidade</li>
+                </ul>
+                <h3>Sobre a Metodologia</h3>
+                <p>Utilizamos algoritmos de análise fonética e semântica para avaliar cada nome em múltiplas dimensões.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-area">
+          <div class="input-container">
+            <div class="input-wrapper">
+              <textarea
+                class="input"
+                data-input
+                placeholder="Escreva sua mensagem..."
+                rows="1"
+                aria-label="Campo de mensagem"
+              ></textarea>
+            </div>
+            <button
+              class="send-button"
+              data-send
+              disabled
+              aria-label="Enviar"
+              title="Enviar mensagem"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    cacheElements() {
+      this.elements = {
+        messages: document.querySelector('[data-messages]'),
+        input: document.querySelector('[data-input]'),
+        send: document.querySelector('[data-send]'),
+        statusDot: document.querySelector('[data-status-dot]'),
+        statusText: document.querySelector('[data-status-text]')
+      };
+    }
+
+    attachListeners() {
+      const { input, send } = this.elements;
+
+      input.addEventListener('input', () => {
+        this.autoResize();
+        this.updateSendButton();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (!send.disabled) this.sendMessage();
+        }
+      });
+
+      send.addEventListener('click', () => this.sendMessage());
+    }
+
+    autoResize() {
+      const { input } = this.elements;
+      input.style.height = 'auto';
+      input.style.height = `${Math.min(input.scrollHeight, 160)}px`;
+    }
+
+    updateSendButton() {
+      const { input, send } = this.elements;
+      send.disabled = !input.value.trim();
+    }
+
+    updateStatus(online) {
+      const { statusDot, statusText } = this.elements;
+      this.isOnline = online;
+
+      if (online) {
+        statusDot.classList.remove('offline');
+        statusText.textContent = 'Online';
+      } else {
+        statusDot.classList.add('offline');
+        statusText.textContent = 'Offline';
+      }
+    }
+
+    scrollToBottom() {
+      const { messages } = this.elements;
+      requestAnimationFrame(() => {
+        messages.scrollTop = messages.scrollHeight;
+      });
+    }
+
+    focusInput() {
+      this.elements.input.focus();
+    }
+
+    addMessage(content, type = 'bot', html = false) {
+      const { messages } = this.elements;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = `message ${type}`;
+
+      const avatar = type === 'user' ? 'U' : 'M';
+
+      wrapper.innerHTML = `
+        <div class="message-avatar">${avatar}</div>
+        <div class="message-content">
+          <div class="message-text">${html ? content : this.escapeHtml(content)}</div>
+        </div>
+      `;
+
+      messages.appendChild(wrapper);
+      this.scrollToBottom();
+
+      return wrapper;
+    }
+
+    showTyping() {
+      const { messages } = this.elements;
+
+      const typing = document.createElement('div');
+      typing.className = 'typing';
+      typing.setAttribute('data-typing', '');
+      typing.innerHTML = `
+        <div class="typing-avatar">M</div>
+        <div class="typing-dots">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      `;
+
+      messages.appendChild(typing);
+      this.scrollToBottom();
+
+      return typing;
+    }
+
+    removeTyping() {
+      const typing = document.querySelector('[data-typing]');
+      if (typing) typing.remove();
+    }
+
+    escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    extractResponse(data) {
+      const keys = ['output', 'response', 'message', 'text', 'result'];
+
+      for (const key of keys) {
+        if (data[key]) return data[key];
+      }
+
+      if (typeof data === 'string') return data;
+
+      return '```json\n' + JSON.stringify(data, null, 2) + '\n```';
+    }
+
+    async sendMessage() {
+      const { input, send } = this.elements;
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      // Disable inputs
+      send.disabled = true;
+      input.disabled = true;
+
+      // Add user message
+      this.addMessage(text, 'user');
+
+      // Clear input
+      input.value = '';
+      input.style.height = 'auto';
+
+      // Show typing
+      const typing = this.showTyping();
+
+      // Prepare request
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), CONFIG.timeout);
+
+      const payload = {
+        chatId: this.chatId,
+        message: text,
+        route: CONFIG.route
+      };
+
+      try {
+        const res = await fetch(CONFIG.webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+
+        clearTimeout(timer);
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        this.removeTyping();
+
+        const responseText = this.extractResponse(data);
+        const html = marked.parse(responseText);
+
+        this.addMessage(html, 'bot', true);
+        this.updateStatus(true);
+
+      } catch (err) {
+        clearTimeout(timer);
+        this.removeTyping();
+
+        let errorMsg = 'Desculpe, ocorreu um erro. ';
+
+        if (err.name === 'AbortError') {
+          errorMsg += 'A requisição demorou muito (timeout de 60s).';
+        } else if (err.message.includes('Failed to fetch')) {
+          errorMsg += 'Não foi possível conectar ao servidor.';
+          this.updateStatus(false);
+        } else if (err.message.includes('HTTP')) {
+          errorMsg += err.message;
+        } else {
+          errorMsg += 'Tente novamente.';
+        }
+
+        this.addMessage(errorMsg, 'error');
+
+      } finally {
+        input.disabled = false;
+        this.focusInput();
+        this.updateSendButton();
+      }
+    }
+  }
+
+  /* ================================================================
+     🚀 INITIALIZE
+     ================================================================ */
+  new ChatApp();
+
+})();
+</script>
+
+</body>
+</html>
