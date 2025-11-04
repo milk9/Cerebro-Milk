@@ -49,11 +49,11 @@ Modificado: <% tp.file.last_modified_date ("YYYY-MM-DD HH:mm") %>
     --color-text-secondary: #525252;
     --color-text-tertiary: #a3a3a3;
 
-    /* Accent Colors - Modern Blue/Violet */
-    --color-primary: #6366f1;
-    --color-primary-hover: #4f46e5;
-    --color-primary-light: #e0e7ff;
-    --color-primary-subtle: #f5f7ff;
+    /* Accent Colors - Warm Yellow/Gold */
+    --color-primary: #f4c430;
+    --color-primary-hover: #e6b422;
+    --color-primary-light: #fef3c7;
+    --color-primary-subtle: #fffbeb;
 
     /* Semantic Colors */
     --color-success: #22c55e;
@@ -132,10 +132,10 @@ Modificado: <% tp.file.last_modified_date ("YYYY-MM-DD HH:mm") %>
       --color-text-secondary: #a3a3a3;
       --color-text-tertiary: #525252;
 
-      --color-primary: #818cf8;
-      --color-primary-hover: #a5b4fc;
-      --color-primary-light: #312e81;
-      --color-primary-subtle: #1e1b4b;
+      --color-primary: #fbbf24;
+      --color-primary-hover: #fcd34d;
+      --color-primary-light: #78350f;
+      --color-primary-subtle: #451a03;
 
       --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
       --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -573,10 +573,9 @@ Modificado: <% tp.file.last_modified_date ("YYYY-MM-DD HH:mm") %>
 
   .input-container {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: var(--space-3);
     max-width: 48rem;
-    margin: 0 auto;
   }
 
   .input-wrapper {
@@ -610,25 +609,25 @@ Modificado: <% tp.file.last_modified_date ("YYYY-MM-DD HH:mm") %>
   }
 
   .send-button {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: var(--radius-full);
     border: none;
     background: var(--color-primary);
-    color: white;
+    color: #1a1816;
     font-size: var(--text-lg);
     cursor: pointer;
     display: grid;
     place-items: center;
     flex-shrink: 0;
     transition: all var(--duration-base) var(--ease-in-out);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 2px 8px rgba(244, 196, 48, 0.3);
   }
 
   .send-button:hover:not(:disabled) {
     background: var(--color-primary-hover);
     transform: scale(1.05);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 12px rgba(244, 196, 48, 0.4);
   }
 
   .send-button:active:not(:disabled) {
